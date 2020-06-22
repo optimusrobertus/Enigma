@@ -79,3 +79,12 @@ while True:
 
   print("This is the converted text:")
   print("".join(translated))
+  
+  #start the program again
+  while True:
+   answer = input('Do you want to encrypt/decrypt another message?:')
+   if answer.lower().startswith("y"):
+      break
+   elif answer.lower().startswith("n"):
+      print("Ok, bye.")
+      exit()
