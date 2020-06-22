@@ -53,3 +53,29 @@ def rotorSettings():
         break
       except:
         print("For setting up the positions of the rotors, only numbers are allowed.") 
+
+while True:
+  toTranslate = []
+  rotors = []
+  translated = []
+
+  rotorSettings()
+
+  print("Please enter the text you would like to encrypt or decrypt.")
+  message = input()
+  #message is converted into a list
+  toTranslate = [char for char in message.lower()]
+
+  enigma = Enigma(rotors)
+
+  #startingposition for rotors
+  for n in rotors:
+    n[0] = rotorTurn(n[1], n[0])
+
+  for x in toTranslate:
+    x = letterThroughRotors(x)
+
+    translated.append(x)
+
+  print("This is the converted text:")
+  print("".join(translated))
