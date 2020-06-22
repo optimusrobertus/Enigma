@@ -41,3 +41,15 @@ def letterThroughRotors(inputLetter):
       enigma.rotors[2][0] = rotorTurn(1, rotors[2][0])
       enigma.rotors[2][1] += 1
   return inputLetter 
+
+#This function is used to set up the positions of the rotors
+def rotorSettings():
+  print("Please give the positions for the rotors:")
+  for x in range(3):
+    while True:
+      print("Position rotor {}:".format(x+1))
+      try:
+        rotors.append([alphabet,int(input())])
+        break
+      except:
+        print("For setting up the positions of the rotors, only numbers are allowed.") 
