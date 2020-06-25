@@ -12,11 +12,7 @@ def encrypt(letter):
   global b
   global c
   
-
-  if letter.isdigit():
-    print("Er mogen geen letter voorkomen in de tekst die u wilt encrypten of decrypten. Probeer het alstublieft opnieuw:\n")
-  
-  elif letter not in alfabet:
+  if letter not in alfabet:
     encryptzin = encryptzin + letter
 
   else:
@@ -81,6 +77,8 @@ while True:
   
   zin = str(input("Voer hier de zin in die u wilt encrypten of decrypten:\n"))
   encryptzin = ""
+
+
 
   print("\nVoer hieronder de standen voor de rotoren A, B en C in.")
 
