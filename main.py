@@ -1,29 +1,4 @@
-# maak hier de hele enigma machine in python :D yoyoyo
-alfabet = "abcdefghijklmnopqrstuvwxyz"
-RotorA =  "vwxyzabcdefghijklmnopqrstu"
-RotorB =  "qrstuvwxyzabcdefghijklmnop"
-RotorC =  "lmnopqrstuvwxyzabcdefghijk"
-#reflector
-reflector = alfabet[::-1]
-
-A=-1
-B=0 
-C=0
-a=0
-b=0
-c=0
-
-zin = str(input("Welke zin: "))
-encryptzin = ""
-
-standA = int(input("welke stand voor rotor A: "))
-standA -=1
-
-standB = int(input("welke stand voor rotor B: "))
-standB -=1
-
-standC = int(input("welke stand voor rotor C: "))
-standC -=1
+# maak hier de hele enigma machine in python :D 
 
 def encrypt(letter):
   global encryptzin
@@ -38,7 +13,8 @@ def encrypt(letter):
   global c
   
 
-  
+  if letter.isdigit():
+    print("Er mogen geen letter voorkomen in de tekst die u wilt encrypten of decrypten. Probeer het alstublieft opnieuw:\n")
   
   elif letter not in alfabet:
     encryptzin = encryptzin + letter
@@ -79,7 +55,6 @@ def encrypt(letter):
     encryptzin += str(letterdoorA)
 
 
-
 def Enigma():
   global A
   global B
@@ -89,13 +64,68 @@ def Enigma():
   C = B//26
 
 
+while True:
+  alfabet = "abcdefghijklmnopqrstuvwxyz"
+  RotorA =  "vwxyzabcdefghijklmnopqrstu"
+  RotorB =  "qrstuvwxyzabcdefghijklmnop"
+  RotorC =  "lmnopqrstuvwxyzabcdefghijk"
+  #reflector
+  reflector = alfabet[::-1]
+
+  A=-1
+  B=0 
+  C=0
+  a=0
+  b=0
+  c=0
+  
+  zin = str(input("Voer hier de zin in die u wilt encrypten of decrypten:\n"))
+  encryptzin = ""
+
+  print("\nVoer hieronder de standen voor de rotoren A, B en C in.")
+
+  while True:
+    standA = int(input("Stand rotor A: "))
+    standA -=  1
+    if 0 <= standA <= 25:
+      break
+    else:
+      print("Kies een getal tussen de 1 en 26.")
+
+  while True:
+    standB = int(input("Stand rotor B: "))
+    standB -=1
+    if 0<= standB <= 25:
+      break
+    else:
+      print("Kies een getal tussen de 1 en 26.")
+
+  while True:
+    standC = int(input("Stand votor C: "))
+    standC -=1
+    if 0<= standC <= 25:
+      break
+    else:
+      print("Kies alstublieft een getal tussen de 1 en 26.")
+ 
+  for letter in zin:
+    Enigma()
+    encrypt(letter)
+
+  print ("\nDe nieuwe zin: "+encryptzin)
+
+  #start the program again
+  while True:
+   answer = input("\nWilt u nog een bericht encrypten of decrypten? (Ja/Nee):\n")
+   if answer.lower().startswith("j"):
+      print("\n")
+      break
+   elif answer.lower().startswith("n"):
+      print("Ok, bye.")
+      exit() 
 
 
 
-for letter in zin:
-  Enigma()
-  encrypt(letter)
 
 
-print ("De nieuwe zin: "+encryptzin)
 
