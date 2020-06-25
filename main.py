@@ -11,10 +11,12 @@ def encrypt(letter):
   global a
   global b
   global c
-  
+
+  #kijkt of de input een ander teken dan een letter is
   if letter not in alfabet:
     encryptzin = encryptzin + letter
 
+  #encrypt/decrypt de input
   else:
     indexA = alfabet.index(letter)+standA+A
     testA = indexA//26
@@ -60,14 +62,17 @@ def Enigma():
   C = B//26
 
 
+#zorgt ervoor dat de machine rutn
 while True:
   alfabet = "abcdefghijklmnopqrstuvwxyz"
   RotorA =  "vwxyzabcdefghijklmnopqrstu"
   RotorB =  "qrstuvwxyzabcdefghijklmnop"
   RotorC =  "lmnopqrstuvwxyzabcdefghijk"
+  
   #reflector
   reflector = alfabet[::-1]
 
+  #startwaarden 
   A=-1
   B=0 
   C=0
@@ -81,6 +86,7 @@ while True:
 
   print("\nVoer hieronder de standen voor de rotoren A, B en C in.")
 
+  #checkt of de input voor de rotoren wel een getal is
   while True:
     standA = int(input("Stand rotor A: "))
     standA -=  1
@@ -105,13 +111,15 @@ while True:
     else:
       print("Kies alstublieft een getal tussen de 1 en 26.")
  
+
+  #start het encrypt/decrypt proces
   for letter in zin:
     Enigma()
     encrypt(letter)
 
   print ("\nDe nieuwe zin:\n"+encryptzin)
 
-  #start the program again
+  #start het programma opnieuw
   while True:
    answer = input("\nWilt u nog een bericht encrypten of decrypten? (Ja/Nee):\n")
    if answer.lower().startswith("j"):
@@ -120,9 +128,3 @@ while True:
    elif answer.lower().startswith("n"):
       print("Ok, bye.")
       exit() 
-
-
-
-
-
-
