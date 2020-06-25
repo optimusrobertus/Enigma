@@ -75,9 +75,8 @@ while True:
   b=0
   c=0
   
-  zin = str(input("Voer hier de zin in die u wilt encrypten of decrypten:\n"))
+  zin = str(input("Voer hier de zin in die u wilt encrypten of decrypten:\n")).lower()
   encryptzin = ""
-
 
 
   print("\nVoer hieronder de standen voor de rotoren A, B en C in.")
@@ -110,7 +109,7 @@ while True:
     Enigma()
     encrypt(letter)
 
-  print ("\nDe nieuwe zin: "+encryptzin)
+  print ("\nDe nieuwe zin:\n"+encryptzin)
 
   #start the program again
   while True:
