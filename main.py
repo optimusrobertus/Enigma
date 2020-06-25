@@ -1,90 +1,101 @@
-alphabet = "abcdefghijklmnopqrstuvwxyz"
-translatedText = []
-rotors = []
+# maak hier de hele enigma machine in python :D yoyoyo
+alfabet = "abcdefghijklmnopqrstuvwxyz"
+RotorA =  "vwxyzabcdefghijklmnopqrstu"
+RotorB =  "qrstuvwxyzabcdefghijklmnop"
+RotorC =  "lmnopqrstuvwxyzabcdefghijk"
+#reflector
+reflector = alfabet[::-1]
 
-class Enigma:
-  def __init__(self, rotors):
-    self.rotors = rotors
-    
-# function that makes the rotors turn
-def rotorTurn(turns, rotor):
-  rotor = (rotor[-turns:] + rotor)[0: 26]
-  return 
+A=-1
+B=0 
+C=0
+a=0
+b=0
+c=0
 
-#function that puts a letter, given by the user, through the rotors
-def letterThroughRotors(inputLetter):
-  if alphabet.find(inputLetter) == -1:
-    return inputLetter
-  #through rotors 1, 2, 3 (in that order)
-  for n in enigma.rotors:
-    inputLetter = n[0][alphabet.index(inputLetter)]
+zin = str(input("Welke zin: "))
+encryptzin = ""
 
-  #inverts alphabet
-  inputLetter = alphabet[::-1][alphabet.index(inputLetter)]
+standA = int(input("welke stand voor rotor A: "))
+standA -=1
 
-  #through rotors 3, 2, 1 (in that order)
-  inputLetter = alphabet[enigma.rotors[2][0].index(inputLetter)]
-  inputLetter = alphabet[enigma.rotors[1][0].index(inputLetter)]
-  inputLetter = alphabet[enigma.rotors[0][0].index(inputLetter)]
-  #rotor 1 moves one letter
-  enigma.rotors[0][0] = rotorTurn(1, rotors[0][0])
-  enigma.rotors[0][1] += 1
+standB = int(input("welke stand voor rotor B: "))
+standB -=1
 
-  #If rotor 1 has made one full turn, rotor 2 moves 1/26th of a turn
-  if enigma.rotors[0][1] % 26 == 0:
-    enigma.rotors[0][1] = 0
-    enigma.rotors[1][0] = rotorTurn(1, rotors[1][0])
-    enigma.rotors[1][1] += 1
-    #if rotor 2 has amde one full turn, rotor 3 moves 1/26th of a turn
-    if enigma.rotors[1][1] % 26 == 0:
-      enigma.rotors[1][1] = 0
-      enigma.rotors[2][0] = rotorTurn(1, rotors[2][0])
-      enigma.rotors[2][1] += 1
-  return inputLetter 
+standC = int(input("welke stand voor rotor C: "))
+standC -=1
 
-#This function is used to set up the positions of the rotors
-def rotorSettings():
-  print("Please give the positions for the rotors:")
-  for x in range(3):
-    while True:
-      print("Position rotor {}:".format(x+1))
-      try:
-        rotors.append([alphabet,int(input())])
-        break
-      except:
-        print("For setting up the positions of the rotors, only numbers are allowed.") 
-
-while True:
-  toTranslate = []
-  rotors = []
-  translated = []
-
-  rotorSettings()
-
-  print("Please enter the text you would like to encrypt or decrypt.")
-  message = input()
-  #message is converted into a list
-  toTranslate = [char for char in message.lower()]
-
-  enigma = Enigma(rotors)
-
-  #startingposition for rotors
-  for n in rotors:
-    n[0] = rotorTurn(n[1], n[0])
-
-  for x in toTranslate:
-    x = letterThroughRotors(x)
-
-    translated.append(x)
-
-  print("This is the converted text:")
-  print("".join(translated))
+def encrypt(letter):
+  global encryptzin
+  global standA
+  global standB
+  global standC
+  global A
+  global B
+  global C
+  global a
+  global b
+  global c
   
-  #start the program again
-  while True:
-   answer = input('Do you want to encrypt/decrypt another message?:')
-   if answer.lower().startswith("y"):
-      break
-   elif answer.lower().startswith("n"):
-      print("Ok, bye.")
-      exit()
+
+  
+  
+  elif letter not in alfabet:
+    encryptzin = encryptzin + letter
+
+  else:
+    indexA = alfabet.index(letter)+standA+A
+    testA = indexA//26
+    a = testA*26
+    letterdoorA = RotorA[alfabet.index(letter)+standA+A-a]
+
+    indexB = alfabet.index(letterdoorA)+standB+B
+    testB = indexB//26
+    b = testB*26
+    letterdoorB = RotorB[alfabet.index(letterdoorA)+standB+B-b]
+
+    indexC = alfabet.index(letterdoorB)+standC+C
+    testC = indexC//26
+    c = testC*26
+    letterdoorC = RotorC[alfabet.index(letterdoorB)+standC+C-c]
+
+    letterdoorR = reflector[alfabet.index(letterdoorC)]
+
+    indexC = alfabet.index(letterdoorR)+standC
+    testC = indexC//26
+    c = testC*26
+    letterdoorC = RotorC[alfabet.index(letterdoorR)-c]
+
+    indexB = alfabet.index(letterdoorC)+standB
+    testB = indexB//26
+    b = testB*26
+    letterdoorB = RotorB[alfabet.index(letterdoorC)-b]
+
+    indexA = alfabet.index(letterdoorB)+standA
+    testA = indexA//26
+    a = testA*26
+    letterdoorA = RotorA[alfabet.index(letterdoorB)-a]
+
+    encryptzin += str(letterdoorA)
+
+
+
+def Enigma():
+  global A
+  global B
+  global C
+  A = A+1
+  B = A//26
+  C = B//26
+
+
+
+
+
+for letter in zin:
+  Enigma()
+  encrypt(letter)
+
+
+print ("De nieuwe zin: "+encryptzin)
+
